@@ -21,11 +21,13 @@ barplot(actMon_by_Days$Total.Steps,
         names.arg = actMon_by_Days$date,
         col = "navy blue",
         main = "Total Number of Steps taken per day")
-#summary(actMon_by_Days)
 ```
 
-#[Sample panel plot](Course-5_Week-1_Assignment1_files\figure-html\unnamed-chunk-3-3.png) 
-[test plot](barplot-1.png)
+![Bar Plot](barplot-1.png)
+
+```{r echo=TRUE}
+summary(actMon_by_Days)
+```
 
 ## What is the average daily activity pattern?
 
