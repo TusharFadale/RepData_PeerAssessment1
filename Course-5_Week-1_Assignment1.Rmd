@@ -24,7 +24,8 @@ barplot(actMon_by_Days$Total.Steps,
 #summary(actMon_by_Days)
 ```
 
-#[Sample panel plot](figure-html/unnamed-chunk-3-3.png) 
+#[Sample panel plot](Course-5_Week-1_Assignment1_files\figure-html\unnamed-chunk-3-3.png) 
+[test plot](barplot-1.png)
 
 ## What is the average daily activity pattern?
 
