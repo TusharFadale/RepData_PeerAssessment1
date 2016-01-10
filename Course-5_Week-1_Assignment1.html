@@ -118,7 +118,8 @@ summary(actMonUpdate_by_Days)[3:4,2]</code></pre>
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>
 <pre class="r"><code>weekEnd &lt;- c(&quot;Saturday&quot;, &quot;Sunday&quot;)
 
-actMon_updated &lt;- mutate(actMon_updated, week.day = weekdays(Date)) %&gt;% mutate(day.of.week = ifelse(week.day == weekEnd, yes = &quot;weekend&quot;, no = &quot;weekday&quot;))
+actMon_updated &lt;- mutate(actMon_updated, week.day = weekdays(Date)) %&gt;%
+     mutate(day.of.week = ifelse(week.day == weekEnd, yes = &quot;weekend&quot;, no = &quot;weekday&quot;))
 
 actMon_updated_by_weekday &lt;- group_by(actMon_updated, interval, day.of.week) %&gt;%
      summarize(Avg.Weekday.Steps = mean(steps, na.rm = TRUE))

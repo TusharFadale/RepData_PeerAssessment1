@@ -76,7 +76,8 @@ summary(actMonUpdate_by_Days)[3:4,2]
 ``` {r echo = TRUE}
 weekEnd <- c("Saturday", "Sunday")
 
-actMon_updated <- mutate(actMon_updated, week.day = weekdays(Date)) %>% mutate(day.of.week = ifelse(week.day == weekEnd, yes = "weekend", no = "weekday"))
+actMon_updated <- mutate(actMon_updated, week.day = weekdays(Date)) %>%
+     mutate(day.of.week = ifelse(week.day == weekEnd, yes = "weekend", no = "weekday"))
 
 actMon_updated_by_weekday <- group_by(actMon_updated, interval, day.of.week) %>%
      summarize(Avg.Weekday.Steps = mean(steps, na.rm = TRUE))
