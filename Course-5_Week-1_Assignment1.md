@@ -1,27 +1,41 @@
----
-title: "Course 5: Reproducible Research: Week-1 Assessment-1"
-output: 
-  html_document:
-    keep_md: true
----
+# Course 5: Reproducible Research: Week-1 Assessment-1
 
-```{r echo=TRUE, message=FALSE, warning=FALSE}
+
+```r
 library(dplyr)
 ```
 
 ## Loading and preprocessing the data
-```{r echo=TRUE}
+
+```r
 actMon <- read.csv("activity.csv")
 actMon_by_Days <- group_by(actMon, date) %>% summarize(Total.Steps = sum(steps, na.rm = TRUE))
 ```
 
 ## What is mean total number of steps taken per day?
-```{r barplot, echo=TRUE}
+
+```r
 barplot(actMon_by_Days$Total.Steps,
         names.arg = actMon_by_Days$date,
         col = "navy blue",
         main = "Total Number of Steps taken per day")
+```
+
+![](Course-5_Week-1_Assignment1_files/figure-html/barplot-1.png)\
+
+```r
 summary(actMon_by_Days)
+```
+
+```
+##          date     Total.Steps   
+##  2012-10-01: 1   Min.   :    0  
+##  2012-10-02: 1   1st Qu.: 6778  
+##  2012-10-03: 1   Median :10395  
+##  2012-10-04: 1   Mean   : 9354  
+##  2012-10-05: 1   3rd Qu.:12811  
+##  2012-10-06: 1   Max.   :21194  
+##  (Other)   :55
 ```
 
 
