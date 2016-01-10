@@ -5,12 +5,24 @@ output:
     keep_md: true
 ---
 
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+library(dplyr)
+```
 
 ## Loading and preprocessing the data
-
-
+```{r echo=TRUE}
+actMon <- read.csv("activity.csv")
+actMon_by_Days <- group_by(actMon, date) %>% summarize(Total.Steps = sum(steps, na.rm = TRUE))
+```
 
 ## What is mean total number of steps taken per day?
+```{r echo=TRUE}
+barplot(actMon_by_Days$Total.Steps,
+        names.arg = actMon_by_Days$date,
+        col = "navy blue",
+        main = "Total Number of Steps taken per day")
+summary(actMon_by_Days)
+```
 
 
 
