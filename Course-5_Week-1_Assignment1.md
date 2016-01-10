@@ -15,13 +15,15 @@ actMon_by_Days <- group_by(actMon, date) %>% summarize(Total.Steps = sum(steps, 
 ## What is mean total number of steps taken per day?
 
 ```r
-barplot(actMon_by_Days$Total.Steps,
-        names.arg = actMon_by_Days$date,
-        col = "navy blue",
-        main = "Total Number of Steps taken per day")
+hist(actMon_by_Days$Total.Steps,
+     breaks = 25,
+     col = "light blue",
+     xlab = "Steps",
+     freq = TRUE,
+     main = "Total Number of Steps taken per day")
 ```
 
-![](Course-5_Week-1_Assignment1_files/figure-html/barplot-1.png)\
+![](Course-5_Week-1_Assignment1_files/figure-html/unnamed-chunk-3-1.png)\
 
 ```r
 summary(actMon_by_Days)
