@@ -7,12 +7,16 @@ output:
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 library(dplyr)
+library(lattice)
 ```
 
 ## Loading and preprocessing the data
 ```{r echo=TRUE}
 actMon <- read.csv("activity.csv")
+
 actMon_by_Days <- group_by(actMon, date) %>% summarize(Total.Steps = sum(steps, na.rm = TRUE))
+
+actMon_by_Intervals <- group_by(actMon, interval) %>% summarize(Avg.Steps = mean(steps, na.rm = TRUE))
 ```
 
 ## What is mean total number of steps taken per day?
@@ -23,18 +27,67 @@ hist(actMon_by_Days$Total.Steps,
      xlab = "Steps",
      freq = TRUE,
      main = "Total Number of Steps taken per day")
-summary(actMon_by_Days)
+
+summary(actMon_by_Days)[3:4,2]
 ```
 
 
-
 ## What is the average daily activity pattern?
+``` {r echo = TRUE}
+plot(actMon_by_Intervals$interval, actMon_by_Intervals$Avg.Steps,
+     type = "l",
+     main = "Average Number of Steps taken in 5 minutes intervals",
+     xlab = "Interval",
+     ylab = "Averate Number of Steps")
+```
 
+The 5-minute interval, on average across all the days in the dataset, which contains the maximum number of steps is:
+`r actMon_by_Intervals$interval[actMon_by_Intervals$Avg.Steps == max(actMon_by_Intervals$Avg.Steps)]`
+
+In-line code used
+``` {r eval = FALSE}
+actMon_by_Intervals$interval[actMon_by_Intervals$Avg.Steps == max(actMon_by_Intervals$Avg.Steps)]
+```
 
 
 ## Imputing missing values
 
+The total number of missing values in the dataset is
+`r table(is.na(actMon$steps))[2]`
+
+In-line code used
+``` {r eval = FALSE}
+table(is.na(actMon$steps))[2]
+```
+
+The missing values in the dataset will be filled with mean value of all the steps per interval per day. Using the updated dataset the mean and median of the total number of steps taken per day is shown below:
+```{r echo = TRUE}
+actMon_updated <- mutate(actMon, Date = as.Date(as.character(date), "%Y-%m-%d"))
+
+actMon_updated$steps[is.na(actMon$steps)] <- mean(actMon$steps, na.rm = TRUE)
+
+actMonUpdate_by_Days <- group_by(actMon_updated, date) %>% summarize(Total.Steps = sum(steps))
+
+summary(actMonUpdate_by_Days)[3:4,2]
+```
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
+``` {r echo = TRUE}
+weekEnd <- c("Saturday", "Sunday")
 
+actMon_updated <- mutate(actMon_updated, week.day = weekdays(Date)) %>% mutate(day.of.week = ifelse(week.day == weekEnd, yes = "weekend", no = "weekday"))
+
+actMon_updated_by_weekday <- group_by(actMon_updated, interval, day.of.week) %>%
+     summarize(Avg.Weekday.Steps = mean(steps, na.rm = TRUE))
+
+xyplot(actMon_updated_by_weekday$Avg.Weekday.Steps
+       ~actMon_updated_by_weekday$interval
+       |actMon_updated_by_weekday$day.of.week,
+       type = "l",
+       main = "Average Number of Steps taken in 5 minutes intervals by weekdays",
+       xlab = "Interval",
+       ylab = "Averate Number of Steps",
+       layout = c(1,2))
+
+```
