@@ -23,9 +23,8 @@ barplot(actMon_by_Days$Total.Steps,
         main = "Total Number of Steps taken per day")
 ```
 
-#![Bar Plot](barplot-1.png)
 
-```{r}
+```{r echo=TRUE}
 summary(actMon_by_Days)
 ```
 
