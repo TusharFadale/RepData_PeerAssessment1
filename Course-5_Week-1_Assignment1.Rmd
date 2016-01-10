@@ -17,13 +17,7 @@ summary(actMon_by_Days)
 ```
 
 ## What is mean total number of steps taken per day?
-```{r barplot, echo=TRUE, eval=TRUE}
-summary(actmon_by_Days)
-barplot(actMon_by_Days$Total.Steps,
-        names.arg = actMon_by_Days$date,
-        col = "navy blue",
-        main = "Total Number of Steps taken per day")
-```
+
 
 
 ## What is the average daily activity pattern?
